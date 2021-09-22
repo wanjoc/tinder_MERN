@@ -1,0 +1,46 @@
+import React, { useState } from 'react';
+import axios from 'axios';
+
+const NewUser = (props) => {
+    const [firstName, setFirstName] = useState("");
+    const [lastName, setLastName] = useState("");
+    const [age, setAge] = useState("");
+    const [gender, setGender] = useState("Male");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [srcImage, setSrcImage] = useState("");
+    const [description, setDescription] = useState("");
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+    }
+
+    return (
+        <div className="container">
+            <form onSubmit={handleSubmit}>
+                <input type="text" className="form-control" placeholder="First Name" onChange={e => { setFirstName(e.target.value) }}></input>
+                <input type="text" className="form-control" placeholder="Last Name" onChange={e => { setLastName(e.target.value) }}></input>
+                <input type="text" className="form-control" placeholder="Age" onChange={e => { setAge(e.target.value) }}></input>
+
+                <select onChange={e => { setGender(e.target.value) }} value={gender}>
+                    <option value="Male" >Male</option>
+                    <option value="Female">Female</option>
+                    <option value="Prefer not to answer, or other">Prefer not to answer, or other</option>
+                </select>
+
+                <input type="text" className="form-control" placeholder="Email" onChange={e => { setEmail(e.target.value) }}></input>
+                <input type="text" className="form-control" placeholder="Password" onChange={e => { setPassword(e.target.value) }}></input>
+                <input type="text" className="form-control" placeholder="Confirm password"></input>
+                <input type="text" className="form-control" placeholder="Image url" onChange={e => { setSrcImage(e.target.value) }}></input>
+                <div className="mb-3">
+                    <label for="exampleFormControlTextarea1" className="form-label">About me:</label>
+                    <textarea className="form-control" id="exampleFormControlTextarea1" rows="3" onChange={e => { setDescription(e.target.value) }}></textarea>
+                </div>
+
+                <button className="btn-sm btn-primary" type="submit">Register</button>
+
+            </form>
+        </div>
+    );
+}
+export default NewUser;
