@@ -1,25 +1,25 @@
-const User = require("../models/user.model");
+const User = require("../models/users.model");
 
 module.exports = {
 
     //Export a function to find all users
     findAllUsers(req, res) {
         User.find()
-            .then(allUsers => { res.json({ author: allUsers }); })
+            .then(allUsers => { res.json({ user: allUsers }); })
             .catch(err => { res.status(400).json(err); });
     },
 
     //Export a function to find an user
     findOneUser(req, res) {
         User.findById(req.params.id)
-            .then(oneUser => { res.json({ author: oneUser }); })
+            .then(oneUser => { res.json({ user: oneUser }); })
             .catch(err => { res.status(400).json(err); });
     },
 
     //Export a function to create/add an user
     createNewUser(req, res) {
         User.create(req.body)
-            .then(newUser => { res.json({ product: newUser }); })
+            .then(newUser => { res.json({ puser: newUser }); })
             .catch(err => { res.status(400).json(err); });
     },
 
@@ -29,7 +29,7 @@ module.exports = {
             runValidators: true, //run validations again before saving to db
             new: true //return the new updated document
         })
-            .then(oneUser => { res.json({ author: oneUser }); })
+            .then(oneUser => { res.json({ user: oneUser }); })
             .catch(err => { res.status(400).json(err); });
     },
 
