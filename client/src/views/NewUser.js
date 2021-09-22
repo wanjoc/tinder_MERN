@@ -21,13 +21,14 @@ const NewUser = (props) => {
             gender: gender,
             email: email,
             password: password,
+            confirmPassword: confirmPassword,
             src: srcImage,
             description: description
 
         };
         axios.post("http://localhost:8000/api/users/new", newUser)
-            .then((res) => { console.log() })
-            .catch((err) => {console.log(err)});
+            .then((res) => { console.log(res.data) })
+            .catch((err) => {console.log(err.response.data.errors)});
     };
 
     return (
@@ -53,7 +54,7 @@ const NewUser = (props) => {
                     <input type="text" className="form-control" placeholder="Email" onChange={e => { setEmail(e.target.value) }}></input>
                 </div>
                 <div className="mb-3">
-                    <input type="password" className="form-control" placeholder="Password" onChange={e => { setPassword(e.target.value) }}></input>
+                    <input type="text" className="form-control" placeholder="Password" onChange={e => { setPassword(e.target.value) }}></input>
                 </div>
                 <div className="mb-3">
                     <input type="text" className="form-control" placeholder="Confirm password" onChange={e => { setConfirmPassword(e.target.value) }}></input>
@@ -62,7 +63,7 @@ const NewUser = (props) => {
                     <input type="text" className="form-control" placeholder="Image url" onChange={e => { setSrcImage(e.target.value) }}></input>
                 </div>
                 <div className="mb-3">
-                    <label for="exampleFormControlTextarea1" className="form-label">About me:</label>
+                    <label className="form-label">About me:</label>
                     <textarea className="form-control" id="exampleFormControlTextarea1" rows="3" onChange={e => { setDescription(e.target.value) }}></textarea>
                 </div>
 
