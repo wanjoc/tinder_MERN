@@ -5,5 +5,14 @@ const EditUser = (props) => {
     const { id } = useParams();
 
     const [firstName, setfirstName] = useState("");
-    const [last]
+    const [lastName, setlastName] = useState("");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [gender, setGender] = useState("");
+    const [age, setAge] = useState("");
+    const [src, setSrc] = useState("");
+    const [description, setDescription] = useState("");
+
+    const [errors, setErrors] = useState(null);
+
 }
