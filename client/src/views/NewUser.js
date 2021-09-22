@@ -24,10 +24,11 @@ const NewUser = (props) => {
             src: srcImage,
             description: description
 
-        }
+        };
         axios.post("http://localhost:8000/api/users/new", newUser)
-            .then((res) => console.log())
-    }
+            .then((res) => { console.log() })
+            .catch((err) => {console.log(err)});
+    };
 
     return (
         <div className="container">
