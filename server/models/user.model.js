@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const bcrypt = require('bcrypt');
-
+//Hello
 const UserSchema = new mongoose.Schema({
     firstName: {
         type: String,
@@ -88,5 +88,6 @@ UserSchema.pre('save', function (next) {
 });
 
 const User = mongoose.model("author", UserSchema);
+
 
 module.exports = User;
