@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 import { BrowserRouter, Route, Redirect, Switch, Private } from 'react-router-dom';
+=======
+import { BrowserRouter, Route, Redirect, Switch } from 'react-router-dom';
+>>>>>>> a7455ba3286e722dea807f0f1962999e1654eac0
 import EditUser from './views/EditUser';
 import NewUser from './views/NewUser';
 import LoginUser from './views/LoginUser';
