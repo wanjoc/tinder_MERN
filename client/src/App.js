@@ -1,4 +1,4 @@
--import { BrowserRouter, Route, Redirect, Switch } from 'react-router-dom';
+import { BrowserRouter, Route, Redirect, Switch } from 'react-router-dom';
 import EditUser from './views/EditUser';
 import NewUser from './views/NewUser';
 import LoginUser from './views/LoginUser';
