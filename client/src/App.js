@@ -1,5 +1,6 @@
 import {BrowserRouter, Route, Redirect, Switch} from 'react-router-dom';
 import EditUser from './views/EditUser';
+import NewUser from './views/NewUser'
 import './App.css';
 
 function App() {
@@ -12,7 +13,7 @@ function App() {
           </Route>
 
           <Route exact path = "/users/:id">
-            <User />
+            {/* <User /> */}
           </Route>
 
           <Route exact path = "/users/:id/edit">
