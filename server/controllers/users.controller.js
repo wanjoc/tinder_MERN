@@ -19,7 +19,7 @@ module.exports = {
     //Export a function to create/add an user
     createNewUser(req, res) {
         User.create(req.body)
-            .then(newUser => { res.json({ puser: newUser }); })
+            .then(newUser => { res.json({ user: newUser }); })
             .catch(err => { res.status(400).json(err); });
     },
 

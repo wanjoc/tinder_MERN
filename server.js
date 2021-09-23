@@ -9,7 +9,7 @@ require("./server/config/mongoose.config");
 
 app.use(express.json(), express.urlencoded({ extended: true }), cors());
 
-// This is where we import the user routes function from our user.routes.js file
+// This is where we import the user routes function from our users.routes.js file
 const AllMyUsersRoutes = require("./server/routes/users.routes");
 AllMyUsersRoutes(app);
 
