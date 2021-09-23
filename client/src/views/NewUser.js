@@ -14,6 +14,8 @@ const NewUser = (props) => {
     const [description, setDescription] = useState("");
     const [errors, setErrors] = useState(null);
 
+    const history = useHistory();
+
     const handleSubmit = (e) => {
         e.preventDefault();
         const newUser = {
@@ -29,8 +31,8 @@ const NewUser = (props) => {
 
         };
         axios.post("http://localhost:8000/api/users/new", newUser)
-            .then((res) => { console.log(res.data) })
-            .catch((err) => { setErrors(err.response.data.errors) });
+            .then((res) => { console.log(res.data); history.push('/users'); })
+            .catch((err) => { console.log(err.response.data.errors); setErrors(err.response.data.errors) });
     };
 
     return (

@@ -7,6 +7,8 @@ const LoginUser = (props) => {
     const [password, setPassword] = useState("");
     const [errors, setErrors] = useState(null);
 
+    const history = useHistory();
+
     const handleSubmit = (e) => {
         e.preventDefault();
         const loginUser = {
@@ -15,9 +17,9 @@ const LoginUser = (props) => {
             password,
 
         };
-        axios.get("http://localhost:8000/api/users/new", loginUser)
-            .then((res) => { console.log(res.data) })
-            .catch((err) => { setErrors(err.response.data.errors) });
+        axios.post("http://localhost:8000/api/users/login", loginUser)
+            .then((res) => { console.log(res.data); history.push('/users'); })
+            .catch((err) => { console.log(err.response.data.errors); setErrors(err.response.data.errors) });
     };
 
     return (
