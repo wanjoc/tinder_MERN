@@ -18,23 +18,6 @@ module.exports = {
             .catch(err => { res.status(400).json(err); });
     },
 
-    //Export a function to create/add an user
-    createNewUser(req, res) {
-        User.create(req.body)
-            .then(newUser => { res.json({ user: newUser }); })
-            .then(newUser => {
-                const userToken = jwt.sign({
-                    id: user._id
-                }, process.env.SECRET_KEY);
-
-                res
-                    .cookie("usertoken", userToken, secret, {
-                        httpOnly: true
-                    })
-                    .json({ msg: "success!", user: newUser });
-            })
-            .catch(err => { res.status(400).json(err); });
-    },
 
     //Export a function to update an user info
     updateExistingUser(req, res) {
@@ -54,8 +37,50 @@ module.exports = {
 
     },
 
+    //Export a function to create/add an user
+    createNewUser(req, res) {
+        User.findOne({ email: req.body.email })
+            .then(user => {
+                console.log(user);
+                if (user !== null) {
+                    console.log("Found user");
+                    return res.status(400).json({errors: {firstName, lastName, age, password, src, description, email: {message: "Email already in use"} } } )
+                }
+                else {
+                    User.create(req.body)
+                        .then(newUser => { res.json({ user: newUser }); })
+                        .then(newUser => {
+                            const userToken = jwt.sign({
+                                id: user._id
+                            }, process.env.SECRET_KEY);
+
+                            res
+                                .cookie("usertoken", userToken, secret, {
+                                    httpOnly: true
+                                })
+                                .json({ msg: "success!", user: newUser });
+                        })
+                        .catch(err => { res.status(400).json(err); });
+                }
+            })
+        // User.create(req.body)
+        //     .then(newUser => { res.json({ user: newUser }); })
+        //     .then(newUser => {
+        //         const userToken = jwt.sign({
+        //             id: user._id
+        //         }, process.env.SECRET_KEY);
+
+        //         res
+        //             .cookie("usertoken", userToken, secret, {
+        //                 httpOnly: true
+        //             })
+        //             .json({ msg: "success!", user: newUser });
+        //     })
+        //     .catch(err => { res.status(400).json(err); });
+    },
+
     login: async (req, res) => {
-    
+
         const user = await User.findOne({ email: req.body.email });
 
         if (user === null) {
