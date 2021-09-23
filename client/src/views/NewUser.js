@@ -32,8 +32,9 @@ const NewUser = (props) => {
         };
         axios.post("http://localhost:8000/api/users/new", newUser)
             .then((res) => { console.log(res.data); history.push('/users'); })
-            .catch((err) => { console.log(err.response.data.errors); setErrors(err.response.data.errors) });
+            .catch((err) => { console.log(err.response); setErrors(err.response.data.errors) });
     };
+    // console.log(err.response.data.errors);
 
     return (
         <div className="container p-5">

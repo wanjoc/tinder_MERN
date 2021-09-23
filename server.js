@@ -4,7 +4,7 @@ const cookieParser = require('cookie-parser');
 
 const app = express();
 
-//Hello
+
 
 // This will fire our mongoose.connect statement to initialize our database connection
 require("./server/config/mongoose.config");
