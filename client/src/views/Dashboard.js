@@ -6,15 +6,17 @@ const Dashboard = (props) => {
     const history = useHistory();
 
     const handleLogOut = (e) => {
-        axios.get("http://localhost:8000/api/users/logout")
-            .then((res) => { console.log(res.data); history.push('/users/login'); })
-            .catch((err) => { console.log(err.response.data.errors); });
+        axios.post("http://localhost:8000/api/users/logout")
+            .then(history.push("/users/login"));
 
     };
     return (
         <div>
             <h1>Success</h1>
-            <button type="button" onClick={handleLogOut}>Log Out</button>
+            <form onSubmit={handleLogOut}>
+                <button type="submit">Log Out</button>
+            </form>
+            
         </div>
     );
 }

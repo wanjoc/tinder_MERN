@@ -20,7 +20,7 @@ module.exports = app => {
     app.post("/api/users/login", UserController.login);
 
     //logout existing user
-    app.get("/api/users/logout", UserController.logout);
+    app.post("/api/users/logout", UserController.logout);
 
     //updates/edit an existing user
     app.put("/api/users/:id", UserController.updateExistingUser);

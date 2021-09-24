@@ -2,6 +2,8 @@ const User = require("../models/users.model");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 
+
+
 module.exports = {
 
     //Export a function to find all users
@@ -44,7 +46,11 @@ module.exports = {
                 console.log(user);
                 if (user !== null) {
                     console.log("Found user");
-                    return res.status(400).json({errors: {firstName, lastName, age, password, src, description, email: {message: "Email already in use"} } } )
+
+                    
+                    // return res.status(400).json({errors: { email: {message: "Email already in use"} } } )
+                    throw ({errors: { email: {message: "Email already in use"} } } )
+                    // return res.status(400).json({errors: {email: {message: "Email already in use"} } } )
                 }
                 else {
                     User.create(req.body)
@@ -53,9 +59,10 @@ module.exports = {
                             const userToken = jwt.sign({
                                 id: user._id
                             }, process.env.SECRET_KEY);
+                            console.log(userToken)
 
                             res
-                                .cookie("usertoken", userToken, secret, {
+                                .cookie("usertoken", userToken, {
                                     httpOnly: true
                                 })
                                 .json({ msg: "success!", user: newUser });
@@ -63,6 +70,7 @@ module.exports = {
                         .catch(err => { res.status(400).json(err); });
                 }
             })
+            .catch(err => { res.status(400).json(err); });
         // User.create(req.body)
         //     .then(newUser => { res.json({ user: newUser }); })
         //     .then(newUser => {
@@ -83,9 +91,12 @@ module.exports = {
 
         const user = await User.findOne({ email: req.body.email });
 
+        console.log(user);
+        console.log("Found user");
+
         if (user === null) {
             // email not found in users collection
-            return res.sendStatus(400);
+            return res.status(400).json({errors: {email: {message: "Invalid email or password"} } } );
         }
 
         // if we made it this far, we found a user with this email address
@@ -94,8 +105,12 @@ module.exports = {
 
         if (!correctPassword) {
             // password wasn't a match!
-            return res.sendStatus(400);
+            return res.status(400).json({errors: {email: {message: "Invalid email or password"} } } );;
         }
+
+        console.log("!!!!!!");
+        console.log(process.env.SECRET_KEY);
+        
 
         // if we made it this far, the password was correct
         const userToken = jwt.sign({
@@ -104,14 +119,15 @@ module.exports = {
 
         // note that the response object allows chained calls to cookie and json
         res
-            .cookie("usertoken", userToken, secret, {
+            .cookie("usertoken", userToken, {
                 httpOnly: true
             })
             .json({ msg: "success!" });
     },
     logout: (req, res) => {
         res.clearCookie('usertoken');
-        res.sendStatus(200);
+        console.log("loggedout");
+        return res.status(200);
     }
 
 };
