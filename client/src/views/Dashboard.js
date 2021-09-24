@@ -9,7 +9,7 @@ const Dashboard = (props) => {
         axios.post("http://localhost:8000/api/users/logout")
             .then(history.push("/users/login"));
     }
-//hello
+//hel
     return (
         <div>
             <h1>Success</h1>
