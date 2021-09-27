@@ -1,8 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useHistory, Link } from 'react-router-dom';
 import axios from 'axios';
+import useScript from './useScript';
+import Typekit from 'react-typekit';
+
 
 const NewUser = (props) => {
+    useScript('https://use.typekit.net/showpassword.js')
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
     const [age, setAge] = useState("");
@@ -15,6 +19,8 @@ const NewUser = (props) => {
     const [errors, setErrors] = useState(null);
 
     const history = useHistory();
+
+
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -31,7 +37,7 @@ const NewUser = (props) => {
 
         };
         axios.post("http://localhost:8000/api/users/new", newUser)
-            .then((res) => { console.log(res.data); history.push('/users'); })
+            .then((res) => { console.log(res.data); localStorage.setItem('token', res.data.token); history.push('/users'); })
             .catch((err) => { console.log(err.response); setErrors(err.response.data.errors) });
     };
     // console.log(err.response.data.errors);
@@ -86,14 +92,19 @@ const NewUser = (props) => {
 
                     <div className="d-flex justify-content-between">
                         <div className="mb-3">
-                            <input type="text" className="form-control" placeholder="Password" onChange={e => { setPassword(e.target.value) }}></input>
+                            <input type="password" className="form-control" placeholder="Password" onChange={e => { setPassword(e.target.value) }}></input>
                             {errors?.password && (
                                 <span style={{ color: "red" }}> {errors?.password?.message}</span>
                             )}
                         </div>
-                        <div className="mb-3">
-                            <input type="text" className="form-control" placeholder="Confirm password" onChange={e => { setConfirmPassword(e.target.value) }}></input>
+
+                        <div className="mb-3" id="show_hide_password">
+                            <input type="password" className="form-control" placeholder="Confirm password" onChange={e => { setConfirmPassword(e.target.value) }}></input>
+                            <div class="input-group-addon">
+                                <a href=""><i class="fa fa-eye-slash" aria-hidden="true"></i></a>
+                            </div>
                         </div>
+
                     </div>
                     <div className="mb-3">
                         <input type="text" className="form-control" placeholder="Image url" onChange={e => { setSrcImage(e.target.value) }}></input>
@@ -117,6 +128,7 @@ const NewUser = (props) => {
                 </form>
             </div>
         </div>
+
     );
 }
 export default NewUser;

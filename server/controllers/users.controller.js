@@ -62,10 +62,10 @@ module.exports = {
                             console.log(userToken)
 
                             res
-                                .cookie("usertoken", userToken, {
+                                .cookie("usertoken", userToken, process.env.SECRET_KEY, {
                                     httpOnly: true
                                 })
-                                .json({ msg: "success!", user: newUser });
+                                .json({ msg: "success!", token: userToken, user: newUser });
                         })
                         .catch(err => { res.status(400).json(err); });
                 }
@@ -119,10 +119,10 @@ module.exports = {
 
         // note that the response object allows chained calls to cookie and json
         res
-            .cookie("usertoken", userToken, {
+            .cookie("usertoken", userToken, process.env.SECRET_KEY, {
                 httpOnly: true
             })
-            .json({ msg: "success!" });
+            .json({ msg: "success!", token: userToken });
     },
     logout: (req, res) => {
         res.clearCookie('usertoken');

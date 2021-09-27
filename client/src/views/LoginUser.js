@@ -18,7 +18,7 @@ const LoginUser = (props) => {
 
         };
         axios.post("http://localhost:8000/api/users/login", loginUser)
-            .then((res) => { console.log(res.data); history.push('/users'); })
+            .then((res) => { console.log(res.data); localStorage.setItem('token', res.data.token); history.push('/users'); })
             .catch((err) => { console.log(err.response.data.errors); setErrors(err.response.data.errors) });
     };
 
